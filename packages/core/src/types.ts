@@ -343,3 +343,19 @@ export interface WinEntry {
   date: string;
   created_at: string;
 }
+
+export interface DecisionRequest {
+  title: string;
+  description: string;
+  options?: string[];
+  context?: string;
+}
+
+export interface DecisionResult {
+  recommendation: string;
+  reasoning: string;
+  pros: string[];
+  cons: string[];
+  risk_level: "low" | "medium" | "high";
+  confidence_score: number; // 0-100
+}

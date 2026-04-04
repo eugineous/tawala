@@ -72,81 +72,81 @@ Full-stack implementation of TAWALA — a Life OS PWA for a young Kenyan profess
   - [x] 7.7 Build Spirit OS UI pages: `/app/spirit` dashboard (daily verse card EN/SW, prayer prompt, streak counters), `/app/spirit/memory` (flashcard review UI), `/app/spirit/gratitude` (journal list + add entry)
   - _Requirements: 7.1–7.6, 16.1–16.4_
 
-- [ ] 8. Goals & Risk OS — monthly goals, habits, streaks, decision engine
-  - [ ] 8.1 Create `apps/web/app/api/goals/route.ts` — POST creates a monthly `Goal`; GET returns goals for a month
-  - [ ] 8.2 Create `apps/web/app/api/goals/[id]/progress/route.ts` — PATCH updates goal progress percent
-  - [ ] 8.3 Create `apps/web/app/api/habits/route.ts` — POST creates a `Habit`; GET returns user's habits
-  - [ ] 8.4 Create `apps/web/app/api/habits/[id]/log/route.ts` — POST logs habit completion for a date; updates `current_streak` and `longest_streak` on the habit record
-  - [ ] 8.5 Create `apps/web/app/api/goals/decision/route.ts` — POST accepts `DecisionRequest`, calls Gemini to evaluate, returns `DecisionResult` with AI reasoning
-  - [ ] 8.6 Build Goals OS UI pages: `/app/goals` dashboard (monthly goal card, habit checklist, streak badges), `/app/goals/decision` (decision evaluation form)
+- [x] 8. Goals & Risk OS — monthly goals, habits, streaks, decision engine
+  - [x] 8.1 Create `apps/web/app/api/goals/route.ts` — POST creates a monthly `Goal`; GET returns goals for a month
+  - [x] 8.2 Create `apps/web/app/api/goals/[id]/progress/route.ts` — PATCH updates goal progress percent
+  - [x] 8.3 Create `apps/web/app/api/habits/route.ts` — POST creates a `Habit`; GET returns user's habits
+  - [x] 8.4 Create `apps/web/app/api/habits/[id]/log/route.ts` — POST logs habit completion for a date; updates `current_streak` and `longest_streak` on the habit record
+  - [x] 8.5 Create `apps/web/app/api/goals/decision/route.ts` — POST accepts `DecisionRequest`, calls Gemini to evaluate, returns `DecisionResult` with AI reasoning
+  - [x] 8.6 Build Goals OS UI pages: `/app/goals` dashboard (monthly goal card, habit checklist, streak badges), `/app/goals/decision` (decision evaluation form)
   - _Requirements: 10.2, 10.5_
 
-- [ ] 9. Mental Health OS — mood, stress, sleep, CBT journal, burnout risk, win log
-  - [ ] 9.1 Create `apps/web/app/api/mental/mood/route.ts` — POST persists `MoodEntry` with mood (1–5), stress (1–5), optional note, date, time of day
-  - [ ] 9.2 Create `apps/web/app/api/mental/sleep/route.ts` — POST persists `SleepEntry` with bedtime, wake time, calculated `duration_hours`, quality (1–5)
-  - [ ] 9.3 Create `apps/web/app/api/mental/cbt/route.ts` — POST persists `CBTEntry` with situation, automatic thought, emotion, optional distortion and rational response
-  - [ ] 9.4 Create `apps/web/app/api/mental/wins/route.ts` — POST persists `WinEntry` with description and current date
-  - [ ] 9.5 Create `apps/web/app/api/mental/burnout/route.ts` — GET runs `assessBurnoutRisk()` over last 14 days of mood, sleep, habit, and stress data; returns `BurnoutRisk` with score, level, factors, and Gemini-generated recommendations
-  - [ ] 9.6 Create `apps/web/app/api/mental/summary/route.ts` — GET returns `MentalHealthSummary` aggregating mood trends, sleep averages, and burnout risk for a period
-  - [ ] 9.7 Build Mental Health OS UI pages: `/app/mental` dashboard (mood ring, sleep bar, burnout gauge), `/app/mental/cbt` (thought journal form), `/app/mental/wins` (win log list)
+- [x] 9. Mental Health OS — mood, stress, sleep, CBT journal, burnout risk, win log
+  - [x] 9.1 Create `apps/web/app/api/mental/mood/route.ts` — POST persists `MoodEntry` with mood (1–5), stress (1–5), optional note, date, time of day
+  - [x] 9.2 Create `apps/web/app/api/mental/sleep/route.ts` — POST persists `SleepEntry` with bedtime, wake time, calculated `duration_hours`, quality (1–5)
+  - [x] 9.3 Create `apps/web/app/api/mental/cbt/route.ts` — POST persists `CBTEntry` with situation, automatic thought, emotion, optional distortion and rational response
+  - [x] 9.4 Create `apps/web/app/api/mental/wins/route.ts` — POST persists `WinEntry` with description and current date
+  - [x] 9.5 Create `apps/web/app/api/mental/burnout/route.ts` — GET runs `assessBurnoutRisk()` over last 14 days of mood, sleep, habit, and stress data; returns `BurnoutRisk` with score, level, factors, and Gemini-generated recommendations
+  - [x] 9.6 Create `apps/web/app/api/mental/summary/route.ts` — GET returns `MentalHealthSummary` aggregating mood trends, sleep averages, and burnout risk for a period
+  - [x] 9.7 Build Mental Health OS UI pages: `/app/mental` dashboard (mood ring, sleep bar, burnout gauge), `/app/mental/cbt` (thought journal form), `/app/mental/wins` (win log list)
   - _Requirements: 9.1–9.5, 17.1–17.5_
 
-- [ ] 10. Family & Relationships OS — contribution tracker, important dates, check-ins
-  - [ ] 10.1 Create `apps/web/app/api/family/contributions/route.ts` — POST records a family financial contribution; GET returns contributions for a month
-  - [ ] 10.2 Create `apps/web/app/api/family/dates/route.ts` — POST adds an important date (birthday, anniversary); GET returns upcoming dates within 30 days
-  - [ ] 10.3 Create `apps/web/app/api/family/checkins/route.ts` — POST logs a family check-in; GET returns check-in history
-  - [ ] 10.4 Build Family OS UI page: `/app/family` dashboard (contribution summary, upcoming dates, check-in log)
+- [x] 10. Family & Relationships OS — contribution tracker, important dates, check-ins
+  - [x] 10.1 Create `apps/web/app/api/family/contributions/route.ts` — POST records a family financial contribution; GET returns contributions for a month
+  - [x] 10.2 Create `apps/web/app/api/family/dates/route.ts` — POST adds an important date (birthday, anniversary); GET returns upcoming dates within 30 days
+  - [x] 10.3 Create `apps/web/app/api/family/checkins/route.ts` — POST logs a family check-in; GET returns check-in history
+  - [x] 10.4 Build Family OS UI page: `/app/family` dashboard (contribution summary, upcoming dates, check-in log)
   - _Requirements: 8.1 (family_score component)_
 
-- [ ] 11. Checkpoint — core modules complete
+- [x] 11. Checkpoint — core modules complete
   - Ensure all module API routes return correct shapes, all Supabase RLS policies are active, and all pure functions in `@tawala/core` are implemented. Ask the user if questions arise.
 
-- [ ] 12. AI Brain — Gemini + NVIDIA NIM orchestration, daily briefing, money letter, future you
-  - [ ] 12.1 Create `apps/web/lib/ai/orchestrator.ts` — implement `AIOrchestrationService`: routes vision tasks (food, M-Pesa) to NVIDIA NIM, reasoning tasks to Gemini 2.5 Pro; injects user context into every prompt; implements exponential backoff retry (1s, 2s, 4s) for 5xx errors; logs errors to `error_logs` table
-  - [ ] 12.2 Implement `generateDailyBriefing(userId)` — fetches yesterday's snapshot (mood, finance, goals, keto), calls Gemini, returns `DailyBriefing` with non-empty greeting, 3–5 priority items, alerts, and verse; caches result in `ai_cache` with 6-hour TTL; returns cached or static fallback if Gemini unavailable
-  - [ ] 12.3 Create `apps/web/app/api/ai/briefing/route.ts` — GET returns cached or freshly generated `DailyBriefing`; checks cache first (< 6 hours old) before calling Gemini
-  - [ ] 12.4 Create Vercel Cron Job config (`vercel.json`) — schedule `POST /api/ai/briefing/pregenerate` at `0 2 * * *` UTC (05:00 EAT) to pre-generate briefings for all users
-  - [ ] 12.5 Implement `generateMoneyLetter(userId, month)` — Gemini-generated monthly financial narrative; create `apps/web/app/api/ai/money-letter/route.ts`
-  - [ ] 12.6 Implement `projectFutureYou(userId)` — Gemini projection of user at age 35 based on current trajectory; create `apps/web/app/api/ai/future-you/route.ts`
-  - [ ] 12.7 Implement `chatWithAdvisor(userId, message)` — streaming Gemini chat with user context; create `apps/web/app/api/ai/chat/route.ts`
+- [x] 12. AI Brain — Gemini + NVIDIA NIM orchestration, daily briefing, money letter, future you
+  - [x] 12.1 Create `apps/web/lib/ai/orchestrator.ts` — implement `AIOrchestrationService`: routes vision tasks (food, M-Pesa) to NVIDIA NIM, reasoning tasks to Gemini 2.5 Pro; injects user context into every prompt; implements exponential backoff retry (1s, 2s, 4s) for 5xx errors; logs errors to `error_logs` table
+  - [x] 12.2 Implement `generateDailyBriefing(userId)` — fetches yesterday's snapshot (mood, finance, goals, keto), calls Gemini, returns `DailyBriefing` with non-empty greeting, 3–5 priority items, alerts, and verse; caches result in `ai_cache` with 6-hour TTL; returns cached or static fallback if Gemini unavailable
+  - [x] 12.3 Create `apps/web/app/api/ai/briefing/route.ts` — GET returns cached or freshly generated `DailyBriefing`; checks cache first (< 6 hours old) before calling Gemini
+  - [x] 12.4 Create Vercel Cron Job config (`vercel.json`) — schedule `POST /api/ai/briefing/pregenerate` at `0 2 * * *` UTC (05:00 EAT) to pre-generate briefings for all users
+  - [x] 12.5 Implement `generateMoneyLetter(userId, month)` — Gemini-generated monthly financial narrative; create `apps/web/app/api/ai/money-letter/route.ts`
+  - [x] 12.6 Implement `projectFutureYou(userId)` — Gemini projection of user at age 35 based on current trajectory; create `apps/web/app/api/ai/future-you/route.ts`
+  - [x] 12.7 Implement `chatWithAdvisor(userId, message)` — streaming Gemini chat with user context; create `apps/web/app/api/ai/chat/route.ts`
   - _Requirements: 1.1–1.5, 13.1–13.4_
 
-- [ ] 13. Gamification Engine — XP, levels, badges, life score
-  - [ ] 13.1 Create `apps/web/lib/gamification.ts` — implement `awardXP(userId, action)`: increments `xp_total` by exactly `action.xp_value`, checks level thresholds, updates `user_levels` table; define XP values for all actions (log_mood: 5, complete_habit: 10, log_food: 8, review_verse: 15, log_sleep: 5, log_win: 10, savings_deposit: 20)
-  - [ ] 13.2 Implement `checkBadges(userId)` — evaluates badge eligibility after each XP award; grants newly earned badges; persists to `user_badges`
-  - [ ] 13.3 Create `apps/web/app/api/gamification/life-score/route.ts` — GET computes weekly `LifeScore` using `computeOverallScore()` with weights Finance 0.25, Goals 0.25, Keto 0.15, Spirit 0.15, Mental Health 0.10, Family 0.10; persists to `life_scores`; sets trend (up/down/stable vs previous week ±2 points)
-  - [ ] 13.4 Create `apps/web/app/api/gamification/xp/route.ts` — POST awards XP for a given action
-  - [ ] 13.5 Create `apps/web/app/api/gamification/leaderboard/route.ts` — GET returns accountability circle leaderboard with only aggregate `LifeScore` fields (no raw data)
+- [x] 13. Gamification Engine — XP, levels, badges, life score
+  - [x] 13.1 Create `apps/web/lib/gamification.ts` — implement `awardXP(userId, action)`: increments `xp_total` by exactly `action.xp_value`, checks level thresholds, updates `user_levels` table; define XP values for all actions (log_mood: 5, complete_habit: 10, log_food: 8, review_verse: 15, log_sleep: 5, log_win: 10, savings_deposit: 20)
+  - [x] 13.2 Implement `checkBadges(userId)` — evaluates badge eligibility after each XP award; grants newly earned badges; persists to `user_badges`
+  - [x] 13.3 Create `apps/web/app/api/gamification/life-score/route.ts` — GET computes weekly `LifeScore` using `computeOverallScore()` with weights Finance 0.25, Goals 0.25, Keto 0.15, Spirit 0.15, Mental Health 0.10, Family 0.10; persists to `life_scores`; sets trend (up/down/stable vs previous week ±2 points)
+  - [x] 13.4 Create `apps/web/app/api/gamification/xp/route.ts` — POST awards XP for a given action
+  - [x] 13.5 Create `apps/web/app/api/gamification/leaderboard/route.ts` — GET returns accountability circle leaderboard with only aggregate `LifeScore` fields (no raw data)
   - _Requirements: 8.1–8.5, 10.1–10.5, 15.1–15.2_
 
-- [ ] 14. Widget System — 6 widget data endpoints
-  - [ ] 14.1 Create `apps/web/app/api/widgets/verse/route.ts` — GET returns `BibleVerseWidgetData`; requires valid JWT (401 if missing)
-  - [ ] 14.2 Create `apps/web/app/api/widgets/keto-meal/route.ts` — GET returns `KetoMealWidgetData`
-  - [ ] 14.3 Create `apps/web/app/api/widgets/finance-balance/route.ts` — GET returns `FinanceBalanceWidgetData`
-  - [ ] 14.4 Create `apps/web/app/api/widgets/daily-goal/route.ts` — GET returns `DailyGoalWidgetData`
-  - [ ] 14.5 Create `apps/web/app/api/widgets/mood-checkin/route.ts` — GET returns `MoodCheckinWidgetData`
-  - [ ] 14.6 Create `apps/web/app/api/widgets/water-tracker/route.ts` — GET returns `WaterTrackerWidgetData`
-  - [ ] 14.7 Build PWA widget components in `apps/web/components/widgets/` — one component per widget type, rendered on home dashboard
+- [x] 14. Widget System — 6 widget data endpoints
+  - [x] 14.1 Create `apps/web/app/api/widgets/verse/route.ts` — GET returns `BibleVerseWidgetData`; requires valid JWT (401 if missing)
+  - [x] 14.2 Create `apps/web/app/api/widgets/keto-meal/route.ts` — GET returns `KetoMealWidgetData`
+  - [x] 14.3 Create `apps/web/app/api/widgets/finance-balance/route.ts` — GET returns `FinanceBalanceWidgetData`
+  - [x] 14.4 Create `apps/web/app/api/widgets/daily-goal/route.ts` — GET returns `DailyGoalWidgetData`
+  - [x] 14.5 Create `apps/web/app/api/widgets/mood-checkin/route.ts` — GET returns `MoodCheckinWidgetData`
+  - [x] 14.6 Create `apps/web/app/api/widgets/water-tracker/route.ts` — GET returns `WaterTrackerWidgetData`
+  - [x] 14.7 Build PWA widget components in `apps/web/components/widgets/` — one component per widget type, rendered on home dashboard
   - _Requirements: 14.1–14.3_
 
-- [ ] 15. Home Dashboard — morning briefing, life score, quick-log overlay
-  - [ ] 15.1 Build `apps/web/app/app/page.tsx` — home dashboard: renders `DailyBriefing` card (greeting, priorities, verse, alerts), `LifeScore` ring chart, 6 widget components, and quick-log FAB
-  - [ ] 15.2 Build quick-log overlay component — bottom sheet with one-tap actions: log mood, log water, complete habit, log food photo; each action calls the relevant API route and awards XP
-  - [ ] 15.3 Build navigation shell — bottom nav bar with icons for Finance, Keto, Spirit, Goals, Mental, Family; AMOLED dark mode (`bg-black`) applied globally
+- [x] 15. Home Dashboard — morning briefing, life score, quick-log overlay
+  - [x] 15.1 Build `apps/web/app/app/page.tsx` — home dashboard: renders `DailyBriefing` card (greeting, priorities, verse, alerts), `LifeScore` ring chart, 6 widget components, and quick-log FAB
+  - [x] 15.2 Build quick-log overlay component — bottom sheet with one-tap actions: log mood, log water, complete habit, log food photo; each action calls the relevant API route and awards XP
+  - [x] 15.3 Build navigation shell — bottom nav bar with icons for Finance, Keto, Spirit, Goals, Mental, Family; AMOLED dark mode (`bg-black`) applied globally
   - _Requirements: 1.1, 8.5, 14.1–14.3_
 
-- [ ] 16. PWA setup — service worker, offline queue, manifest
-  - [ ] 16.1 Configure Workbox in `apps/web/next.config.ts` — generate service worker with precache for today's meal plan, daily verse, and budget state routes
-  - [ ] 16.2 Create `apps/web/public/manifest.json` — PWA manifest with name "TAWALA", short_name "TAWALA", theme_color "#000000", display "standalone", icons at 192px and 512px
-  - [ ] 16.3 Implement `apps/web/lib/offline-queue.ts` — IndexedDB-backed queue using `idb`; `enqueue(entry)` stores writes when offline; `flush()` replays queue to Supabase in chronological order on reconnect; server-wins for financial transactions, client-wins for journal/mood entries
-  - [ ] 16.4 Wire offline queue into all POST API calls — detect `navigator.onLine`; if offline, enqueue instead of fetching; register `online` event listener to trigger `flush()`
+- [x] 16. PWA setup — service worker, offline queue, manifest
+  - [x] 16.1 Configure Workbox in `apps/web/next.config.ts` — generate service worker with precache for today's meal plan, daily verse, and budget state routes
+  - [x] 16.2 Create `apps/web/public/manifest.json` — PWA manifest with name "TAWALA", short_name "TAWALA", theme_color "#000000", display "standalone", icons at 192px and 512px
+  - [x] 16.3 Implement `apps/web/lib/offline-queue.ts` — IndexedDB-backed queue using `idb`; `enqueue(entry)` stores writes when offline; `flush()` replays queue to Supabase in chronological order on reconnect; server-wins for financial transactions, client-wins for journal/mood entries
+  - [x] 16.4 Wire offline queue into all POST API calls — detect `navigator.onLine`; if offline, enqueue instead of fetching; register `online` event listener to trigger `flush()`
   - _Requirements: 11.1–11.4_
 
-- [ ] 17. Checkpoint — full app wired together
+- [x] 17. Checkpoint — full app wired together
   - Verify home dashboard loads briefing, all module pages render, widget endpoints return correct shapes, offline queue enqueues and flushes correctly. Ensure all tests pass. Ask the user if questions arise.
 
-- [ ] 18. Property-based tests with fast-check (all 19 correctness properties)
-  - [ ] 18.1 Write property test for Property 1: budget allocations sum to monthly income
+- [x] 18. Property-based tests with fast-check (all 19 correctness properties)
+  - [x] 18.1 Write property test for Property 1: budget allocations sum to monthly income
     - **Property 1: Budget allocations sum to monthly income**
     - **Validates: Requirements 2.1**
     - Use `fc.integer({ min: 30000, max: 100000 })` as income; assert `Math.abs(sum(allocations) - income) < 1`
@@ -275,14 +275,14 @@ Full-stack implementation of TAWALA — a Life OS PWA for a young Kenyan profess
     - Test static fallback returned when cache is empty and Gemini is unavailable
     - _Requirements: 1.3–1.5, 13.1–13.4_
 
-- [ ] 20. Cloudflare deployment — Pages + Workers, env vars, cron triggers
-  - [ ] 20.1 Install `@cloudflare/next-on-pages` and configure `next.config.ts` for Cloudflare edge runtime; add `wrangler.toml` with project name "tawala"
-  - [ ] 20.2 Create `wrangler.toml` — configure Cloudflare Pages project, set compatibility_date, add cron trigger `0 2 * * *` for daily briefing pre-generation at 05:00 EAT
-  - [ ] 20.3 Add all env vars to Cloudflare Pages project via Wrangler CLI using `CLOUDFLARE_API_TOKEN=cfut_SpmrTgH4mqqH3QvxDbNeH7eXsJjyhQ85xGQ2wq7C15ffa7cb` (NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY, GEMINI_API_KEY, NVIDIA_API_KEY, NEXT_PUBLIC_GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET)
-  - [ ] 20.4 Deploy to Cloudflare Pages using `npx wrangler pages deploy` with `CLOUDFLARE_API_TOKEN`; verify deployment URL is live
+- [x] 20. Cloudflare deployment — Pages + Workers, env vars, cron triggers
+  - [x] 20.1 Install `@cloudflare/next-on-pages` and configure `next.config.ts` for Cloudflare edge runtime; add `wrangler.toml` with project name "tawala"
+  - [x] 20.2 Create `wrangler.toml` — configure Cloudflare Pages project, set compatibility_date, add cron trigger `0 2 * * *` for daily briefing pre-generation at 05:00 EAT
+  - [x] 20.3 Add all env vars to Cloudflare Pages project via Wrangler CLI using `CLOUDFLARE_API_TOKEN=cfut_SpmrTgH4mqqH3QvxDbNeH7eXsJjyhQ85xGQ2wq7C15ffa7cb` (NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY, GEMINI_API_KEY, NVIDIA_API_KEY, NEXT_PUBLIC_GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET)
+  - [x] 20.4 Deploy to Cloudflare Pages using `npx wrangler pages deploy` with `CLOUDFLARE_API_TOKEN`; verify deployment URL is live
   - _Requirements: 1.4, 11.4_
 
-- [ ] 21. GitHub push and final verification
+- [-] 21. GitHub push and final verification
   - Push all code to https://github.com/eugineous/tawala on `main` branch using `GITHUB_TOKEN`
   - Verify Cloudflare Pages deployment is live and home dashboard loads with daily briefing
   - Verify Google OAuth login flow works end-to-end
