@@ -62,17 +62,17 @@ Full-stack implementation of TAWALA — a Life OS PWA for a young Kenyan profess
   - [x] 6.6 Build Keto OS UI pages: `/app/keto` dashboard (macro rings, ketosis badge, water tracker), `/app/keto/log` (photo capture + manual entry), `/app/keto/meal-plan` (weekly plan + shopping list)
   - _Requirements: 5.1–5.7, 6.1–6.5_
 
-- [-] 7. Spirit OS — daily verse, prayer, scripture memory SM-2, gratitude journal
-  - [ ] 7.1 Create `apps/web/app/api/spirit/verse/route.ts` — GET returns today's `BibleVerse` in both English and Swahili; seeds `bible_verses` table with initial verse set
-  - [ ] 7.2 Create `apps/web/app/api/spirit/prayer/route.ts` — GET returns a contextually relevant morning prayer prompt
-  - [ ] 7.3 Create `apps/web/app/api/spirit/memory-verses/route.ts` — GET returns user's memory verses due for review; POST adds a new verse to memory list
-  - [ ] 7.4 Create `apps/web/app/api/spirit/memory-verses/[id]/review/route.ts` — POST accepts quality rating (0–5), runs `reviewMemoryVerse()` SM-2 logic, persists updated verse, awards XP via gamification engine
-  - [ ] 7.5 Create `apps/web/app/api/spirit/gratitude/route.ts` — POST persists `GratitudeEntry` with current date; GET returns entries for a date range
-  - [ ] 7.6 Create `apps/web/app/api/spirit/score/route.ts` — GET returns weekly `SpiritScore` (verse streak, prayer streak, memory reviews, gratitude count, score 0–100)
-  - [ ] 7.7 Build Spirit OS UI pages: `/app/spirit` dashboard (daily verse card EN/SW, prayer prompt, streak counters), `/app/spirit/memory` (flashcard review UI), `/app/spirit/gratitude` (journal list + add entry)
+- [x] 7. Spirit OS — daily verse, prayer, scripture memory SM-2, gratitude journal
+  - [x] 7.1 Create `apps/web/app/api/spirit/verse/route.ts` — GET returns today's `BibleVerse` in both English and Swahili; seeds `bible_verses` table with initial verse set
+  - [x] 7.2 Create `apps/web/app/api/spirit/prayer/route.ts` — GET returns a contextually relevant morning prayer prompt
+  - [x] 7.3 Create `apps/web/app/api/spirit/memory-verses/route.ts` — GET returns user's memory verses due for review; POST adds a new verse to memory list
+  - [x] 7.4 Create `apps/web/app/api/spirit/memory-verses/[id]/review/route.ts` — POST accepts quality rating (0–5), runs `reviewMemoryVerse()` SM-2 logic, persists updated verse, awards XP via gamification engine
+  - [x] 7.5 Create `apps/web/app/api/spirit/gratitude/route.ts` — POST persists `GratitudeEntry` with current date; GET returns entries for a date range
+  - [x] 7.6 Create `apps/web/app/api/spirit/score/route.ts` — GET returns weekly `SpiritScore` (verse streak, prayer streak, memory reviews, gratitude count, score 0–100)
+  - [x] 7.7 Build Spirit OS UI pages: `/app/spirit` dashboard (daily verse card EN/SW, prayer prompt, streak counters), `/app/spirit/memory` (flashcard review UI), `/app/spirit/gratitude` (journal list + add entry)
   - _Requirements: 7.1–7.6, 16.1–16.4_
 
-- [~] 8. Goals & Risk OS — monthly goals, habits, streaks, decision engine
+- [ ] 8. Goals & Risk OS — monthly goals, habits, streaks, decision engine
   - [ ] 8.1 Create `apps/web/app/api/goals/route.ts` — POST creates a monthly `Goal`; GET returns goals for a month
   - [ ] 8.2 Create `apps/web/app/api/goals/[id]/progress/route.ts` — PATCH updates goal progress percent
   - [ ] 8.3 Create `apps/web/app/api/habits/route.ts` — POST creates a `Habit`; GET returns user's habits
@@ -81,7 +81,7 @@ Full-stack implementation of TAWALA — a Life OS PWA for a young Kenyan profess
   - [ ] 8.6 Build Goals OS UI pages: `/app/goals` dashboard (monthly goal card, habit checklist, streak badges), `/app/goals/decision` (decision evaluation form)
   - _Requirements: 10.2, 10.5_
 
-- [~] 9. Mental Health OS — mood, stress, sleep, CBT journal, burnout risk, win log
+- [ ] 9. Mental Health OS — mood, stress, sleep, CBT journal, burnout risk, win log
   - [ ] 9.1 Create `apps/web/app/api/mental/mood/route.ts` — POST persists `MoodEntry` with mood (1–5), stress (1–5), optional note, date, time of day
   - [ ] 9.2 Create `apps/web/app/api/mental/sleep/route.ts` — POST persists `SleepEntry` with bedtime, wake time, calculated `duration_hours`, quality (1–5)
   - [ ] 9.3 Create `apps/web/app/api/mental/cbt/route.ts` — POST persists `CBTEntry` with situation, automatic thought, emotion, optional distortion and rational response
@@ -91,7 +91,7 @@ Full-stack implementation of TAWALA — a Life OS PWA for a young Kenyan profess
   - [ ] 9.7 Build Mental Health OS UI pages: `/app/mental` dashboard (mood ring, sleep bar, burnout gauge), `/app/mental/cbt` (thought journal form), `/app/mental/wins` (win log list)
   - _Requirements: 9.1–9.5, 17.1–17.5_
 
-- [~] 10. Family & Relationships OS — contribution tracker, important dates, check-ins
+- [ ] 10. Family & Relationships OS — contribution tracker, important dates, check-ins
   - [ ] 10.1 Create `apps/web/app/api/family/contributions/route.ts` — POST records a family financial contribution; GET returns contributions for a month
   - [ ] 10.2 Create `apps/web/app/api/family/dates/route.ts` — POST adds an important date (birthday, anniversary); GET returns upcoming dates within 30 days
   - [ ] 10.3 Create `apps/web/app/api/family/checkins/route.ts` — POST logs a family check-in; GET returns check-in history
