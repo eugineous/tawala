@@ -53,16 +53,16 @@ Full-stack implementation of TAWALA — a Life OS PWA for a young Kenyan profess
   - [x] 5.6 Build Finance OS UI pages: `/app/finance` dashboard (budget ring chart, category bars), `/app/finance/transactions` (list + M-Pesa scan button), `/app/finance/approve` (purchase approval form)
   - _Requirements: 2.1–2.6, 3.1–3.6, 4.1–4.5_
 
-- [-] 6. Keto OS — meal plans, macro tracking, food photo logging, ketosis status, water tracking
-  - [ ] 6.1 Create `apps/web/app/api/keto/log-food-photo/route.ts` — POST accepts food photo, calls NVIDIA NIM to identify food items, calls Gemini to calculate `MacroBreakdown`, persists `FoodLogEntry` with photo URL, updates daily macro totals; returns empty items + confidence 0 if no food detected
-  - [ ] 6.2 Create `apps/web/app/api/keto/food-log/route.ts` — POST for manual food log entry; GET returns daily food logs for a date
-  - [ ] 6.3 Create `apps/web/app/api/keto/macros/route.ts` — GET returns `DailyMacros` for a date including `KetosisStatus` computed via `calculateKetosisStatus()`
-  - [ ] 6.4 Create `apps/web/app/api/keto/water/route.ts` — POST logs water intake in ml; GET returns today's water log; water target is always 3,000 ml
-  - [ ] 6.5 Create `apps/web/app/api/keto/meal-plan/route.ts` — GET returns weekly `MealPlan`; shopping list items must have `estimated_cost_kes > 0`
-  - [ ] 6.6 Build Keto OS UI pages: `/app/keto` dashboard (macro rings, ketosis badge, water tracker), `/app/keto/log` (photo capture + manual entry), `/app/keto/meal-plan` (weekly plan + shopping list)
+- [x] 6. Keto OS — meal plans, macro tracking, food photo logging, ketosis status, water tracking
+  - [x] 6.1 Create `apps/web/app/api/keto/log-food-photo/route.ts` — POST accepts food photo, calls NVIDIA NIM to identify food items, calls Gemini to calculate `MacroBreakdown`, persists `FoodLogEntry` with photo URL, updates daily macro totals; returns empty items + confidence 0 if no food detected
+  - [x] 6.2 Create `apps/web/app/api/keto/food-log/route.ts` — POST for manual food log entry; GET returns daily food logs for a date
+  - [x] 6.3 Create `apps/web/app/api/keto/macros/route.ts` — GET returns `DailyMacros` for a date including `KetosisStatus` computed via `calculateKetosisStatus()`
+  - [x] 6.4 Create `apps/web/app/api/keto/water/route.ts` — POST logs water intake in ml; GET returns today's water log; water target is always 3,000 ml
+  - [x] 6.5 Create `apps/web/app/api/keto/meal-plan/route.ts` — GET returns weekly `MealPlan`; shopping list items must have `estimated_cost_kes > 0`
+  - [x] 6.6 Build Keto OS UI pages: `/app/keto` dashboard (macro rings, ketosis badge, water tracker), `/app/keto/log` (photo capture + manual entry), `/app/keto/meal-plan` (weekly plan + shopping list)
   - _Requirements: 5.1–5.7, 6.1–6.5_
 
-- [~] 7. Spirit OS — daily verse, prayer, scripture memory SM-2, gratitude journal
+- [-] 7. Spirit OS — daily verse, prayer, scripture memory SM-2, gratitude journal
   - [ ] 7.1 Create `apps/web/app/api/spirit/verse/route.ts` — GET returns today's `BibleVerse` in both English and Swahili; seeds `bible_verses` table with initial verse set
   - [ ] 7.2 Create `apps/web/app/api/spirit/prayer/route.ts` — GET returns a contextually relevant morning prayer prompt
   - [ ] 7.3 Create `apps/web/app/api/spirit/memory-verses/route.ts` — GET returns user's memory verses due for review; POST adds a new verse to memory list
