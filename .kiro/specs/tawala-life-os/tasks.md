@@ -44,16 +44,16 @@ Full-stack implementation of TAWALA — a Life OS PWA for a young Kenyan profess
   - [x] 4.6 Create `packages/core/src/utils.ts` — date helpers (EAT timezone), signed URL expiry validator, retry with exponential backoff
   - _Requirements: 2.1, 2.2, 2.3, 3.1, 5.2, 5.3, 6.1–6.5, 7.1–7.4, 8.1–8.4, 9.1–9.2_
 
-- [-] 5. Finance OS — budget, transactions, purchase approval, M-Pesa scan, savings streak
-  - [ ] 5.1 Create `apps/web/app/api/finance/budget/route.ts` — GET returns `BudgetAllocation` for authenticated user; calls `allocateBudget()` from core; persists to `budget_allocations` table
-  - [ ] 5.2 Create `apps/web/app/api/finance/transactions/route.ts` — POST records a `Transaction`; GET returns paginated transactions for user; flags category as `OVER_BUDGET` when actual > allocated
-  - [ ] 5.3 Create `apps/web/app/api/finance/approve-purchase/route.ts` — POST runs `evaluatePurchase()` logic: checks ImpulsePause (≥ KES 3,000 → create 24hr pause), budget remaining, savings streak caution; returns `PurchaseDecision`
-  - [ ] 5.4 Create `apps/web/app/api/finance/scan-mpesa/route.ts` — POST accepts image upload, calls NVIDIA NIM for OCR, calls Gemini to parse/categorize, deduplicates by `mpesa_ref`, persists transactions, returns parsed list; returns `UNREADABLE` error if NIM fails
-  - [ ] 5.5 Create `apps/web/app/api/finance/savings-streak/route.ts` — GET returns `SavingsStreak` for user
-  - [ ] 5.6 Build Finance OS UI pages: `/app/finance` dashboard (budget ring chart, category bars), `/app/finance/transactions` (list + M-Pesa scan button), `/app/finance/approve` (purchase approval form)
+- [x] 5. Finance OS — budget, transactions, purchase approval, M-Pesa scan, savings streak
+  - [x] 5.1 Create `apps/web/app/api/finance/budget/route.ts` — GET returns `BudgetAllocation` for authenticated user; calls `allocateBudget()` from core; persists to `budget_allocations` table
+  - [x] 5.2 Create `apps/web/app/api/finance/transactions/route.ts` — POST records a `Transaction`; GET returns paginated transactions for user; flags category as `OVER_BUDGET` when actual > allocated
+  - [x] 5.3 Create `apps/web/app/api/finance/approve-purchase/route.ts` — POST runs `evaluatePurchase()` logic: checks ImpulsePause (≥ KES 3,000 → create 24hr pause), budget remaining, savings streak caution; returns `PurchaseDecision`
+  - [x] 5.4 Create `apps/web/app/api/finance/scan-mpesa/route.ts` — POST accepts image upload, calls NVIDIA NIM for OCR, calls Gemini to parse/categorize, deduplicates by `mpesa_ref`, persists transactions, returns parsed list; returns `UNREADABLE` error if NIM fails
+  - [x] 5.5 Create `apps/web/app/api/finance/savings-streak/route.ts` — GET returns `SavingsStreak` for user
+  - [x] 5.6 Build Finance OS UI pages: `/app/finance` dashboard (budget ring chart, category bars), `/app/finance/transactions` (list + M-Pesa scan button), `/app/finance/approve` (purchase approval form)
   - _Requirements: 2.1–2.6, 3.1–3.6, 4.1–4.5_
 
-- [~] 6. Keto OS — meal plans, macro tracking, food photo logging, ketosis status, water tracking
+- [-] 6. Keto OS — meal plans, macro tracking, food photo logging, ketosis status, water tracking
   - [ ] 6.1 Create `apps/web/app/api/keto/log-food-photo/route.ts` — POST accepts food photo, calls NVIDIA NIM to identify food items, calls Gemini to calculate `MacroBreakdown`, persists `FoodLogEntry` with photo URL, updates daily macro totals; returns empty items + confidence 0 if no food detected
   - [ ] 6.2 Create `apps/web/app/api/keto/food-log/route.ts` — POST for manual food log entry; GET returns daily food logs for a date
   - [ ] 6.3 Create `apps/web/app/api/keto/macros/route.ts` — GET returns `DailyMacros` for a date including `KetosisStatus` computed via `calculateKetosisStatus()`
