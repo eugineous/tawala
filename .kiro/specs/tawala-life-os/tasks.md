@@ -6,7 +6,7 @@ Full-stack implementation of TAWALA — a Life OS PWA for a young Kenyan profess
 
 ## Tasks
 
-- [-] 1. Project setup and monorepo scaffolding
+- [x] 1. Project setup and monorepo scaffolding
   - Clone https://github.com/eugineous/tawala and set up Turborepo monorepo with `apps/web` (Next.js 15), `apps/mobile` (Expo), and `packages/core` (@tawala/core)
   - Configure `tsconfig.json` with path aliases for `@tawala/core`
   - Install all dependencies: next 15, @supabase/supabase-js, @google/generative-ai, expo, expo-router, @tanstack/react-query, zustand, tailwindcss, shadcn/ui, recharts, workbox, fast-check, jest, @testing-library/react, playwright
@@ -17,7 +17,7 @@ Full-stack implementation of TAWALA — a Life OS PWA for a young Kenyan profess
   - Push initial scaffold to GitHub
   - _Requirements: 11.1, 12.1_
 
-- [ ] 2. Supabase schema, RLS, indexes, and storage
+- [x] 2. Supabase schema, RLS, indexes, and storage
   - Create new Supabase project and capture URL, anon key, and service role key into `.env.local`
   - Write migration SQL for all tables: `profiles`, `transactions`, `budget_allocations`, `impulse_pauses`, `food_logs`, `daily_macros`, `water_logs`, `bible_verses`, `memory_verses`, `gratitude_entries`, `spirit_scores`, `goals`, `habits`, `habit_logs`, `mood_entries`, `sleep_entries`, `cbt_entries`, `win_entries`, `life_scores`, `xp_actions`, `user_levels`, `badges`, `user_badges`, `ai_cache`, `error_logs`, `offline_queue`
   - Add composite indexes on `(user_id, date)` for all time-series tables and `(user_id, month)` for budget tables
@@ -26,13 +26,13 @@ Full-stack implementation of TAWALA — a Life OS PWA for a young Kenyan profess
   - Enable Google OAuth provider in Supabase Auth dashboard
   - _Requirements: 12.1, 12.2, 12.6_
 
-- [ ] 3. Authentication — Google OAuth via Supabase
-  - [ ] 3.1 Implement `apps/web/lib/supabase.ts` — browser and server Supabase clients using `@supabase/ssr`
-  - [ ] 3.2 Create `apps/web/app/auth/callback/route.ts` — OAuth callback handler that exchanges code for session
-  - [ ] 3.3 Create `apps/web/middleware.ts` — protect all `/app/*` routes; redirect unauthenticated users to `/login`
-  - [ ] 3.4 Build `/login` page with Google Sign-In button using Supabase `signInWithOAuth({ provider: 'google' })`
-  - [ ] 3.5 Implement `Auth_Middleware` helper `validateJWT(req)` used by all API route handlers — returns 401 if no valid JWT
-  - [ ] 3.6 Implement silent token refresh via `supabase.auth.onAuthStateChange` in root layout; queue and replay failed requests after refresh
+- [-] 3. Authentication — Google OAuth via Supabase
+  - [x] 3.1 Implement `apps/web/lib/supabase.ts` — browser and server Supabase clients using `@supabase/ssr`
+  - [x] 3.2 Create `apps/web/app/auth/callback/route.ts` — OAuth callback handler that exchanges code for session
+  - [x] 3.3 Create `apps/web/middleware.ts` — protect all `/app/*` routes; redirect unauthenticated users to `/login`
+  - [x] 3.4 Build `/login` page with Google Sign-In button using Supabase `signInWithOAuth({ provider: 'google' })`
+  - [x] 3.5 Implement `Auth_Middleware` helper `validateJWT(req)` used by all API route handlers — returns 401 if no valid JWT
+  - [x] 3.6 Implement silent token refresh via `supabase.auth.onAuthStateChange` in root layout; queue and replay failed requests after refresh
   - _Requirements: 12.1, 12.2, 12.3, 12.5_
 
 - [ ] 4. @tawala/core — shared types and utilities
@@ -275,16 +275,16 @@ Full-stack implementation of TAWALA — a Life OS PWA for a young Kenyan profess
     - Test static fallback returned when cache is empty and Gemini is unavailable
     - _Requirements: 1.3–1.5, 13.1–13.4_
 
-- [ ] 20. Vercel deployment — env vars, cron jobs, edge config
-  - [ ] 20.1 Create `vercel.json` — configure cron job `{ "path": "/api/ai/briefing/pregenerate", "schedule": "0 2 * * *" }` for 05:00 EAT daily briefing pre-generation
-  - [ ] 20.2 Add all env vars to Vercel project via Vercel API using `VERCEL_TOKEN` (NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY, GEMINI_API_KEY, NVIDIA_API_KEY, NEXT_PUBLIC_GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET)
-  - [ ] 20.3 Configure `next.config.ts` — enable PWA via `next-pwa` or Workbox, set `output: 'standalone'` for Vercel, configure image domains for Supabase Storage
-  - [ ] 20.4 Deploy to Vercel using `vercel --prod` with `VERCEL_TOKEN`; verify deployment URL is live
+- [ ] 20. Cloudflare deployment — Pages + Workers, env vars, cron triggers
+  - [ ] 20.1 Install `@cloudflare/next-on-pages` and configure `next.config.ts` for Cloudflare edge runtime; add `wrangler.toml` with project name "tawala"
+  - [ ] 20.2 Create `wrangler.toml` — configure Cloudflare Pages project, set compatibility_date, add cron trigger `0 2 * * *` for daily briefing pre-generation at 05:00 EAT
+  - [ ] 20.3 Add all env vars to Cloudflare Pages project via Wrangler CLI using `CLOUDFLARE_API_TOKEN=cfut_SpmrTgH4mqqH3QvxDbNeH7eXsJjyhQ85xGQ2wq7C15ffa7cb` (NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY, GEMINI_API_KEY, NVIDIA_API_KEY, NEXT_PUBLIC_GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET)
+  - [ ] 20.4 Deploy to Cloudflare Pages using `npx wrangler pages deploy` with `CLOUDFLARE_API_TOKEN`; verify deployment URL is live
   - _Requirements: 1.4, 11.4_
 
 - [ ] 21. GitHub push and final verification
   - Push all code to https://github.com/eugineous/tawala on `main` branch using `GITHUB_TOKEN`
-  - Verify Vercel deployment is live and home dashboard loads with daily briefing
+  - Verify Cloudflare Pages deployment is live and home dashboard loads with daily briefing
   - Verify Google OAuth login flow works end-to-end
   - Verify at least one widget endpoint returns correct data shape
   - Run `jest --testPathPattern=properties` to confirm all property-based tests pass
