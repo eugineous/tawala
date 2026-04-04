@@ -35,16 +35,16 @@ Full-stack implementation of TAWALA — a Life OS PWA for a young Kenyan profess
   - [x] 3.6 Implement silent token refresh via `supabase.auth.onAuthStateChange` in root layout; queue and replay failed requests after refresh
   - _Requirements: 12.1, 12.2, 12.3, 12.5_
 
-- [-] 4. @tawala/core — shared types and utilities
-  - [ ] 4.1 Create `packages/core/src/types.ts` — export all TypeScript interfaces: `UserProfile`, `Transaction`, `BudgetAllocation`, `ImpulsePause`, `SavingsStreak`, `FoodLogEntry`, `MacroBreakdown`, `DailyMacros`, `KetosisStatus`, `MealPlan`, `ShoppingItem`, `BibleVerse`, `MemoryVerse`, `GratitudeEntry`, `SpiritScore`, `Goal`, `Habit`, `HabitLog`, `MoodEntry`, `CBTEntry`, `SleepEntry`, `BurnoutRisk`, `UserLevel`, `Badge`, `XPAction`, `LifeScore`, `DailyBriefing`, `PurchaseDecision`, `ImpulsePause`
-  - [ ] 4.2 Create `packages/core/src/finance.ts` — implement pure functions: `allocateBudget(income, prefs)`, `evaluatePurchase(req, ctx)`, `deduplicateTransactions(txs)`
-  - [ ] 4.3 Create `packages/core/src/keto.ts` — implement pure functions: `calculateKetosisStatus(logs)`, `calculateNetCarbs(macros)`, `scoreKeto(data)`
-  - [ ] 4.4 Create `packages/core/src/spirit.ts` — implement pure functions: `reviewMemoryVerse(verse, quality)` (SM-2 algorithm), `scoreSpiritData(data)`
-  - [ ] 4.5 Create `packages/core/src/gamification.ts` — implement pure functions: `computeOverallScore(moduleScores)`, `computeLifeScoreTrend(current, previous)`, `assessBurnoutRisk(inputs)`, `computeBurnoutLevel(score)`
-  - [ ] 4.6 Create `packages/core/src/utils.ts` — date helpers (EAT timezone), signed URL expiry validator, retry with exponential backoff
+- [x] 4. @tawala/core — shared types and utilities
+  - [x] 4.1 Create `packages/core/src/types.ts` — export all TypeScript interfaces: `UserProfile`, `Transaction`, `BudgetAllocation`, `ImpulsePause`, `SavingsStreak`, `FoodLogEntry`, `MacroBreakdown`, `DailyMacros`, `KetosisStatus`, `MealPlan`, `ShoppingItem`, `BibleVerse`, `MemoryVerse`, `GratitudeEntry`, `SpiritScore`, `Goal`, `Habit`, `HabitLog`, `MoodEntry`, `CBTEntry`, `SleepEntry`, `BurnoutRisk`, `UserLevel`, `Badge`, `XPAction`, `LifeScore`, `DailyBriefing`, `PurchaseDecision`, `ImpulsePause`
+  - [x] 4.2 Create `packages/core/src/finance.ts` — implement pure functions: `allocateBudget(income, prefs)`, `evaluatePurchase(req, ctx)`, `deduplicateTransactions(txs)`
+  - [x] 4.3 Create `packages/core/src/keto.ts` — implement pure functions: `calculateKetosisStatus(logs)`, `calculateNetCarbs(macros)`, `scoreKeto(data)`
+  - [x] 4.4 Create `packages/core/src/spirit.ts` — implement pure functions: `reviewMemoryVerse(verse, quality)` (SM-2 algorithm), `scoreSpiritData(data)`
+  - [x] 4.5 Create `packages/core/src/gamification.ts` — implement pure functions: `computeOverallScore(moduleScores)`, `computeLifeScoreTrend(current, previous)`, `assessBurnoutRisk(inputs)`, `computeBurnoutLevel(score)`
+  - [x] 4.6 Create `packages/core/src/utils.ts` — date helpers (EAT timezone), signed URL expiry validator, retry with exponential backoff
   - _Requirements: 2.1, 2.2, 2.3, 3.1, 5.2, 5.3, 6.1–6.5, 7.1–7.4, 8.1–8.4, 9.1–9.2_
 
-- [ ] 5. Finance OS — budget, transactions, purchase approval, M-Pesa scan, savings streak
+- [-] 5. Finance OS — budget, transactions, purchase approval, M-Pesa scan, savings streak
   - [ ] 5.1 Create `apps/web/app/api/finance/budget/route.ts` — GET returns `BudgetAllocation` for authenticated user; calls `allocateBudget()` from core; persists to `budget_allocations` table
   - [ ] 5.2 Create `apps/web/app/api/finance/transactions/route.ts` — POST records a `Transaction`; GET returns paginated transactions for user; flags category as `OVER_BUDGET` when actual > allocated
   - [ ] 5.3 Create `apps/web/app/api/finance/approve-purchase/route.ts` — POST runs `evaluatePurchase()` logic: checks ImpulsePause (≥ KES 3,000 → create 24hr pause), budget remaining, savings streak caution; returns `PurchaseDecision`
@@ -53,7 +53,7 @@ Full-stack implementation of TAWALA — a Life OS PWA for a young Kenyan profess
   - [ ] 5.6 Build Finance OS UI pages: `/app/finance` dashboard (budget ring chart, category bars), `/app/finance/transactions` (list + M-Pesa scan button), `/app/finance/approve` (purchase approval form)
   - _Requirements: 2.1–2.6, 3.1–3.6, 4.1–4.5_
 
-- [ ] 6. Keto OS — meal plans, macro tracking, food photo logging, ketosis status, water tracking
+- [~] 6. Keto OS — meal plans, macro tracking, food photo logging, ketosis status, water tracking
   - [ ] 6.1 Create `apps/web/app/api/keto/log-food-photo/route.ts` — POST accepts food photo, calls NVIDIA NIM to identify food items, calls Gemini to calculate `MacroBreakdown`, persists `FoodLogEntry` with photo URL, updates daily macro totals; returns empty items + confidence 0 if no food detected
   - [ ] 6.2 Create `apps/web/app/api/keto/food-log/route.ts` — POST for manual food log entry; GET returns daily food logs for a date
   - [ ] 6.3 Create `apps/web/app/api/keto/macros/route.ts` — GET returns `DailyMacros` for a date including `KetosisStatus` computed via `calculateKetosisStatus()`
@@ -62,7 +62,7 @@ Full-stack implementation of TAWALA — a Life OS PWA for a young Kenyan profess
   - [ ] 6.6 Build Keto OS UI pages: `/app/keto` dashboard (macro rings, ketosis badge, water tracker), `/app/keto/log` (photo capture + manual entry), `/app/keto/meal-plan` (weekly plan + shopping list)
   - _Requirements: 5.1–5.7, 6.1–6.5_
 
-- [ ] 7. Spirit OS — daily verse, prayer, scripture memory SM-2, gratitude journal
+- [~] 7. Spirit OS — daily verse, prayer, scripture memory SM-2, gratitude journal
   - [ ] 7.1 Create `apps/web/app/api/spirit/verse/route.ts` — GET returns today's `BibleVerse` in both English and Swahili; seeds `bible_verses` table with initial verse set
   - [ ] 7.2 Create `apps/web/app/api/spirit/prayer/route.ts` — GET returns a contextually relevant morning prayer prompt
   - [ ] 7.3 Create `apps/web/app/api/spirit/memory-verses/route.ts` — GET returns user's memory verses due for review; POST adds a new verse to memory list
@@ -72,7 +72,7 @@ Full-stack implementation of TAWALA — a Life OS PWA for a young Kenyan profess
   - [ ] 7.7 Build Spirit OS UI pages: `/app/spirit` dashboard (daily verse card EN/SW, prayer prompt, streak counters), `/app/spirit/memory` (flashcard review UI), `/app/spirit/gratitude` (journal list + add entry)
   - _Requirements: 7.1–7.6, 16.1–16.4_
 
-- [ ] 8. Goals & Risk OS — monthly goals, habits, streaks, decision engine
+- [~] 8. Goals & Risk OS — monthly goals, habits, streaks, decision engine
   - [ ] 8.1 Create `apps/web/app/api/goals/route.ts` — POST creates a monthly `Goal`; GET returns goals for a month
   - [ ] 8.2 Create `apps/web/app/api/goals/[id]/progress/route.ts` — PATCH updates goal progress percent
   - [ ] 8.3 Create `apps/web/app/api/habits/route.ts` — POST creates a `Habit`; GET returns user's habits
@@ -81,7 +81,7 @@ Full-stack implementation of TAWALA — a Life OS PWA for a young Kenyan profess
   - [ ] 8.6 Build Goals OS UI pages: `/app/goals` dashboard (monthly goal card, habit checklist, streak badges), `/app/goals/decision` (decision evaluation form)
   - _Requirements: 10.2, 10.5_
 
-- [ ] 9. Mental Health OS — mood, stress, sleep, CBT journal, burnout risk, win log
+- [~] 9. Mental Health OS — mood, stress, sleep, CBT journal, burnout risk, win log
   - [ ] 9.1 Create `apps/web/app/api/mental/mood/route.ts` — POST persists `MoodEntry` with mood (1–5), stress (1–5), optional note, date, time of day
   - [ ] 9.2 Create `apps/web/app/api/mental/sleep/route.ts` — POST persists `SleepEntry` with bedtime, wake time, calculated `duration_hours`, quality (1–5)
   - [ ] 9.3 Create `apps/web/app/api/mental/cbt/route.ts` — POST persists `CBTEntry` with situation, automatic thought, emotion, optional distortion and rational response
@@ -91,7 +91,7 @@ Full-stack implementation of TAWALA — a Life OS PWA for a young Kenyan profess
   - [ ] 9.7 Build Mental Health OS UI pages: `/app/mental` dashboard (mood ring, sleep bar, burnout gauge), `/app/mental/cbt` (thought journal form), `/app/mental/wins` (win log list)
   - _Requirements: 9.1–9.5, 17.1–17.5_
 
-- [ ] 10. Family & Relationships OS — contribution tracker, important dates, check-ins
+- [~] 10. Family & Relationships OS — contribution tracker, important dates, check-ins
   - [ ] 10.1 Create `apps/web/app/api/family/contributions/route.ts` — POST records a family financial contribution; GET returns contributions for a month
   - [ ] 10.2 Create `apps/web/app/api/family/dates/route.ts` — POST adds an important date (birthday, anniversary); GET returns upcoming dates within 30 days
   - [ ] 10.3 Create `apps/web/app/api/family/checkins/route.ts` — POST logs a family check-in; GET returns check-in history
