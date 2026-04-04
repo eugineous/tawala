@@ -26,7 +26,7 @@ Full-stack implementation of TAWALA — a Life OS PWA for a young Kenyan profess
   - Enable Google OAuth provider in Supabase Auth dashboard
   - _Requirements: 12.1, 12.2, 12.6_
 
-- [-] 3. Authentication — Google OAuth via Supabase
+- [x] 3. Authentication — Google OAuth via Supabase
   - [x] 3.1 Implement `apps/web/lib/supabase.ts` — browser and server Supabase clients using `@supabase/ssr`
   - [x] 3.2 Create `apps/web/app/auth/callback/route.ts` — OAuth callback handler that exchanges code for session
   - [x] 3.3 Create `apps/web/middleware.ts` — protect all `/app/*` routes; redirect unauthenticated users to `/login`
@@ -35,7 +35,7 @@ Full-stack implementation of TAWALA — a Life OS PWA for a young Kenyan profess
   - [x] 3.6 Implement silent token refresh via `supabase.auth.onAuthStateChange` in root layout; queue and replay failed requests after refresh
   - _Requirements: 12.1, 12.2, 12.3, 12.5_
 
-- [ ] 4. @tawala/core — shared types and utilities
+- [-] 4. @tawala/core — shared types and utilities
   - [ ] 4.1 Create `packages/core/src/types.ts` — export all TypeScript interfaces: `UserProfile`, `Transaction`, `BudgetAllocation`, `ImpulsePause`, `SavingsStreak`, `FoodLogEntry`, `MacroBreakdown`, `DailyMacros`, `KetosisStatus`, `MealPlan`, `ShoppingItem`, `BibleVerse`, `MemoryVerse`, `GratitudeEntry`, `SpiritScore`, `Goal`, `Habit`, `HabitLog`, `MoodEntry`, `CBTEntry`, `SleepEntry`, `BurnoutRisk`, `UserLevel`, `Badge`, `XPAction`, `LifeScore`, `DailyBriefing`, `PurchaseDecision`, `ImpulsePause`
   - [ ] 4.2 Create `packages/core/src/finance.ts` — implement pure functions: `allocateBudget(income, prefs)`, `evaluatePurchase(req, ctx)`, `deduplicateTransactions(txs)`
   - [ ] 4.3 Create `packages/core/src/keto.ts` — implement pure functions: `calculateKetosisStatus(logs)`, `calculateNetCarbs(macros)`, `scoreKeto(data)`
