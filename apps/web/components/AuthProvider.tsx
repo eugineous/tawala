@@ -10,11 +10,8 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
   useEffect(() => {
     const supabase = createClient()
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
-      if (event === 'SIGNED_OUT') {
-        router.push('/login')
-      }
-      // TOKEN_REFRESHED is handled automatically by @supabase/ssr
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event) => {
+      // Auth handling disabled — open access mode
     })
 
     return () => subscription.unsubscribe()
