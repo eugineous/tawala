@@ -1,0 +1,84 @@
+'use client'
+
+import { createClient } from '@/lib/supabase'
+import { useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
+import { WalletIcon, LeafIcon, CrossIcon, TargetIcon, BrainIcon, UsersIcon } from '@/components/icons'
+
+const FEATURES = [
+  { label: 'Finance', color: '#f59e0b', Icon: WalletIcon },
+  { label: 'Keto', color: '#22c55e', Icon: LeafIcon },
+  { label: 'Spirit', color: '#a78bfa', Icon: CrossIcon },
+  { label: 'Goals', color: '#7c3aed', Icon: TargetIcon },
+  { label: 'Mental', color: '#3b82f6', Icon: BrainIcon },
+  { label: 'Family', color: '#ec4899', Icon: UsersIcon },
+]
+
+function LoginContent() {
+  const searchParams = useSearchParams()
+  const error = searchParams.get('error')
+
+  async function handleGoogleSignIn() {
+    const supabase = createClient()
+    await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: `${window.location.origin}/auth/callback` },
+    })
+  }
+
+  return (
+    <main className="flex min-h-screen flex-col bg-black text-white">
+      <div className="flex flex-1 flex-col items-center justify-center px-6 pt-16 pb-8">
+        <div className="relative mb-10">
+          <div className="absolute inset-0 rounded-full bg-violet-600 blur-3xl opacity-25 scale-150" />
+          <div className="relative flex h-20 w-20 items-center justify-center rounded-3xl bg-[#0a0a0a] border border-[#1f1f1f] shadow-2xl">
+            <svg viewBox="0 0 24 24" className="w-10 h-10 text-violet-400" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+        </div>
+        <h1 className="text-5xl font-black tracking-[0.2em] text-white mb-2">TAWALA</h1>
+        <p className="text-sm tracking-[0.25em] text-zinc-400 uppercase mb-1">Reign over your life</p>
+        <p className="text-xs text-zinc-600 text-center max-w-xs mt-3 leading-relaxed">
+          Your personal Life OS — finance, health, spirit, goals, and AI advisor in one place.
+        </p>
+        <div className="flex flex-wrap justify-center gap-2 mt-8 max-w-xs">
+          {FEATURES.map(({ label, color, Icon }) => (
+            <div key={label} className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-[#0a0a0a] border border-[#1f1f1f] text-zinc-400">
+              <span style={{ color }}><Icon className="w-3 h-3" /></span>
+              <span>{label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="px-6 pb-12 space-y-4">
+        {error && (
+          <div className="rounded-xl bg-red-950/60 border border-red-900/50 px-4 py-3 text-sm text-red-400 text-center">
+            Sign-in failed. Please try again.
+          </div>
+        )}
+        <button
+          onClick={handleGoogleSignIn}
+          className="flex w-full items-center justify-center gap-3 rounded-2xl bg-white px-6 py-4 text-sm font-semibold text-black transition-all hover:bg-zinc-100 active:scale-95 shadow-lg"
+        >
+          <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
+            <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" />
+            <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" />
+            <path fill="#FBBC05" d="M3.964 10.707A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.707V4.961H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.039l3.007-2.332z" />
+            <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.961L3.964 7.293C4.672 5.163 6.656 3.58 9 3.58z" />
+          </svg>
+          Continue with Google
+        </button>
+        <p className="text-center text-xs text-zinc-600">By signing in you agree to our terms. Your data stays private.</p>
+      </div>
+    </main>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-black" />}>
+      <LoginContent />
+    </Suspense>
+  )
+}
