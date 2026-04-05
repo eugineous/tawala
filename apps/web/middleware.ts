@@ -32,12 +32,7 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  // Protect all /app/* routes
-  if (request.nextUrl.pathname.startsWith('/app') && !user) {
-    const loginUrl = new URL('/login', request.url)
-    return NextResponse.redirect(loginUrl)
-  }
-
+  // Auth check disabled — open access
   return response
 }
 
