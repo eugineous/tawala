@@ -282,7 +282,7 @@ Full-stack implementation of TAWALA — a Life OS PWA for a young Kenyan profess
   - [x] 20.4 Deploy to Cloudflare Pages using `npx wrangler pages deploy` with `CLOUDFLARE_API_TOKEN`; verify deployment URL is live
   - _Requirements: 1.4, 11.4_
 
-- [-] 21. GitHub push and final verification
+- [x] 21. GitHub push and final verification
   - Push all code to https://github.com/eugineous/tawala on `main` branch using `GITHUB_TOKEN`
   - Verify Cloudflare Pages deployment is live and home dashboard loads with daily briefing
   - Verify Google OAuth login flow works end-to-end
