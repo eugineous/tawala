@@ -1,9 +1,7 @@
 'use client'
 
 import { useEffect, useState, type FormEvent } from 'react'
-
-const METHOD_EMOJI: Record<string, string> = { call: '📞', visit: '🏠', message: '💬' }
-const TYPE_EMOJI: Record<string, string> = { birthday: '🎂', anniversary: '💍', other: '📅' }
+import { ClockIcon, PhoneIcon, MessageIcon } from '@/components/icons'
 
 interface Contribution {
   id: string
@@ -30,17 +28,21 @@ interface Checkin {
   date: string
 }
 
+const METHOD_ICONS: Record<string, React.ReactNode> = {
+  call: <PhoneIcon className="w-4 h-4 text-green-400" />,
+  visit: <ClockIcon className="w-4 h-4 text-blue-400" />,
+  message: <MessageIcon className="w-4 h-4 text-violet-400" />,
+}
+
 export default function FamilyPage() {
   const currentMonth = new Date().toISOString().slice(0, 7)
 
-  // Data state
   const [totalKes, setTotalKes] = useState(0)
   const [contributions, setContributions] = useState<Contribution[]>([])
   const [upcomingDates, setUpcomingDates] = useState<ImportantDate[]>([])
   const [checkins, setCheckins] = useState<Checkin[]>([])
   const [loading, setLoading] = useState(true)
 
-  // Contribution form
   const [cPerson, setCPerson] = useState('')
   const [cAmount, setCAmount] = useState('')
   const [cDesc, setCDesc] = useState('')
@@ -48,7 +50,6 @@ export default function FamilyPage() {
   const [cSaved, setCSaved] = useState(false)
   const [cError, setCError] = useState('')
 
-  // Check-in form
   const [ciPerson, setCiPerson] = useState('')
   const [ciMethod, setCiMethod] = useState<'call' | 'visit' | 'message'>('call')
   const [ciNotes, setCiNotes] = useState('')
@@ -77,7 +78,6 @@ export default function FamilyPage() {
     const amount = parseFloat(cAmount)
     if (!cAmount || isNaN(amount) || amount <= 0) return setCError('Enter a valid amount')
     if (!cDesc.trim()) return setCError('Description is required')
-
     setCSaving(true)
     const res = await fetch('/api/family/contributions', {
       method: 'POST',
@@ -89,9 +89,7 @@ export default function FamilyPage() {
       const newC = await res.json()
       setContributions([newC, ...contributions])
       setTotalKes(totalKes + amount)
-      setCPerson('')
-      setCAmount('')
-      setCDesc('')
+      setCPerson(''); setCAmount(''); setCDesc('')
       setCSaved(true)
       setTimeout(() => setCSaved(false), 2000)
     } else {
@@ -104,7 +102,6 @@ export default function FamilyPage() {
     e.preventDefault()
     setCiError('')
     if (!ciPerson.trim()) return setCiError('Person name is required')
-
     setCiSaving(true)
     const res = await fetch('/api/family/checkins', {
       method: 'POST',
@@ -115,8 +112,7 @@ export default function FamilyPage() {
     if (res.ok) {
       const newCi = await res.json()
       setCheckins([newCi, ...checkins].slice(0, 20))
-      setCiPerson('')
-      setCiNotes('')
+      setCiPerson(''); setCiNotes('')
       setCiSaved(true)
       setTimeout(() => setCiSaved(false), 2000)
     } else {
@@ -129,10 +125,12 @@ export default function FamilyPage() {
     return new Date(dateStr).toLocaleDateString('en-KE', { month: 'short', day: 'numeric' })
   }
 
+  const inputClass = "w-full bg-[#111111] border border-[#1f1f1f] rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-violet-600"
+
   return (
     <div className="min-h-screen bg-black text-white px-4 py-6">
-      <h1 className="text-2xl font-bold mb-1">Family OS</h1>
-      <p className="text-zinc-400 text-sm mb-6">
+      <h1 className="text-2xl font-bold tracking-tight mb-1">Family</h1>
+      <p className="text-zinc-500 text-sm mb-6">
         {new Date().toLocaleDateString('en-KE', { weekday: 'long', month: 'long', day: 'numeric' })}
       </p>
 
@@ -141,7 +139,7 @@ export default function FamilyPage() {
       ) : (
         <>
           {/* Contribution Summary */}
-          <div className="bg-zinc-950 border border-zinc-900 rounded-2xl p-5 mb-4">
+          <div className="bg-[#0a0a0a] border border-[#1f1f1f] rounded-2xl p-5 mb-4">
             <div className="flex items-center justify-between mb-3">
               <p className="text-xs text-zinc-500 uppercase tracking-wider">Contributions This Month</p>
               <p className="text-lg font-bold text-green-400">KES {totalKes.toLocaleString()}</p>
@@ -149,7 +147,7 @@ export default function FamilyPage() {
             {contributions.length === 0 ? (
               <p className="text-zinc-600 text-sm">No contributions recorded yet.</p>
             ) : (
-              <div className="space-y-2">
+              <div className="space-y-2.5">
                 {contributions.slice(0, 5).map((c) => (
                   <div key={c.id} className="flex items-center justify-between">
                     <div>
@@ -167,45 +165,25 @@ export default function FamilyPage() {
           </div>
 
           {/* Add Contribution Form */}
-          <form onSubmit={handleAddContribution} className="bg-zinc-950 border border-zinc-900 rounded-2xl p-5 mb-4">
-            <p className="text-xs text-zinc-500 uppercase tracking-wider mb-3">Log Contribution 💰</p>
-            <div className="space-y-2">
-              <input
-                type="text"
-                value={cPerson}
-                onChange={(e) => setCPerson(e.target.value)}
-                placeholder="Person name"
-                className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-3 py-2 text-sm text-white placeholder-zinc-600"
-              />
-              <input
-                type="number"
-                value={cAmount}
-                onChange={(e) => setCAmount(e.target.value)}
-                placeholder="Amount (KES)"
-                min={1}
-                className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-3 py-2 text-sm text-white placeholder-zinc-600"
-              />
-              <input
-                type="text"
-                value={cDesc}
-                onChange={(e) => setCDesc(e.target.value)}
-                placeholder="Description (e.g. school fees, food)"
-                className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-3 py-2 text-sm text-white placeholder-zinc-600"
-              />
+          <form onSubmit={handleAddContribution} className="bg-[#0a0a0a] border border-[#1f1f1f] rounded-2xl p-5 mb-4">
+            <p className="text-xs text-zinc-500 uppercase tracking-wider mb-3">Log Contribution</p>
+            <div className="space-y-2.5">
+              <input type="text" value={cPerson} onChange={(e) => setCPerson(e.target.value)} placeholder="Person name" className={inputClass} />
+              <input type="number" value={cAmount} onChange={(e) => setCAmount(e.target.value)} placeholder="Amount (KES)" min={1} className={inputClass} />
+              <input type="text" value={cDesc} onChange={(e) => setCDesc(e.target.value)} placeholder="Description (e.g. school fees, food)" className={inputClass} />
               {cError && <p className="text-red-400 text-xs">{cError}</p>}
-              <button
-                type="submit"
-                disabled={cSaving}
-                className="w-full bg-green-700 hover:bg-green-600 disabled:opacity-50 text-white font-semibold py-2 rounded-xl transition-colors"
-              >
-                {cSaved ? '✓ Saved' : cSaving ? 'Saving…' : 'Add Contribution'}
+              <button type="submit" disabled={cSaving} className="w-full bg-violet-600 hover:bg-violet-500 disabled:opacity-50 text-white font-semibold py-3 rounded-xl transition-colors">
+                {cSaved ? 'Saved' : cSaving ? 'Saving…' : 'Add Contribution'}
               </button>
             </div>
           </form>
 
           {/* Upcoming Dates */}
-          <div className="bg-zinc-950 border border-zinc-900 rounded-2xl p-5 mb-4">
-            <p className="text-xs text-zinc-500 uppercase tracking-wider mb-3">Upcoming Dates (30 days)</p>
+          <div className="bg-[#0a0a0a] border border-[#1f1f1f] rounded-2xl p-5 mb-4">
+            <div className="flex items-center gap-2 mb-3">
+              <ClockIcon className="w-4 h-4 text-zinc-400" />
+              <p className="text-xs text-zinc-500 uppercase tracking-wider">Upcoming Dates (30 days)</p>
+            </div>
             {upcomingDates.length === 0 ? (
               <p className="text-zinc-600 text-sm">No upcoming dates in the next 30 days.</p>
             ) : (
@@ -213,7 +191,7 @@ export default function FamilyPage() {
                 {upcomingDates.map((d) => (
                   <div key={d.id} className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <span className="text-xl">{TYPE_EMOJI[d.type] ?? '📅'}</span>
+                      <ClockIcon className="w-4 h-4 text-zinc-500 flex-shrink-0" />
                       <div>
                         <p className="text-sm font-semibold text-white">{d.person_name}</p>
                         <p className="text-xs text-zinc-500">{d.name} · {formatDate(d.date)}</p>
@@ -221,7 +199,7 @@ export default function FamilyPage() {
                     </div>
                     <div className="text-right">
                       {d.days_until === 0 ? (
-                        <span className="text-xs font-bold text-yellow-400 bg-yellow-400/10 px-2 py-0.5 rounded-full">Today!</span>
+                        <span className="text-xs font-bold text-yellow-400 bg-yellow-400/10 px-2 py-0.5 rounded-full">Today</span>
                       ) : (
                         <span className="text-xs text-zinc-400">{d.days_until}d away</span>
                       )}
@@ -232,16 +210,16 @@ export default function FamilyPage() {
             )}
           </div>
 
-          {/* Check-in Log */}
-          <div className="bg-zinc-950 border border-zinc-900 rounded-2xl p-5 mb-4">
+          {/* Recent Check-ins */}
+          <div className="bg-[#0a0a0a] border border-[#1f1f1f] rounded-2xl p-5 mb-4">
             <p className="text-xs text-zinc-500 uppercase tracking-wider mb-3">Recent Check-ins</p>
             {checkins.length === 0 ? (
               <p className="text-zinc-600 text-sm">No check-ins logged yet.</p>
             ) : (
-              <div className="space-y-2">
+              <div className="space-y-2.5">
                 {checkins.slice(0, 8).map((ci) => (
                   <div key={ci.id} className="flex items-center gap-3">
-                    <span className="text-lg">{METHOD_EMOJI[ci.method] ?? '👋'}</span>
+                    <div className="flex-shrink-0">{METHOD_ICONS[ci.method] ?? <MessageIcon className="w-4 h-4 text-zinc-500" />}</div>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm text-white">{ci.person_name}</p>
                       {ci.notes && <p className="text-xs text-zinc-500 truncate">{ci.notes}</p>}
@@ -254,46 +232,33 @@ export default function FamilyPage() {
           </div>
 
           {/* Log Check-in Form */}
-          <form onSubmit={handleAddCheckin} className="bg-zinc-950 border border-zinc-900 rounded-2xl p-5 mb-4">
-            <p className="text-xs text-zinc-500 uppercase tracking-wider mb-3">Log Check-in 👋</p>
-            <div className="space-y-2">
-              <input
-                type="text"
-                value={ciPerson}
-                onChange={(e) => setCiPerson(e.target.value)}
-                placeholder="Person name"
-                className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-3 py-2 text-sm text-white placeholder-zinc-600"
-              />
+          <form onSubmit={handleAddCheckin} className="bg-[#0a0a0a] border border-[#1f1f1f] rounded-2xl p-5 mb-4">
+            <p className="text-xs text-zinc-500 uppercase tracking-wider mb-3">Log Check-in</p>
+            <div className="space-y-2.5">
+              <input type="text" value={ciPerson} onChange={(e) => setCiPerson(e.target.value)} placeholder="Person name" className={inputClass} />
               <div className="flex gap-2">
                 {(['call', 'visit', 'message'] as const).map((m) => (
                   <button
                     key={m}
                     type="button"
                     onClick={() => setCiMethod(m)}
-                    className={`flex-1 text-xs py-2 rounded-xl border transition-colors ${
+                    className={`flex-1 flex items-center justify-center gap-1.5 text-xs py-2.5 rounded-xl border transition-colors ${
                       ciMethod === m
-                        ? 'bg-blue-700 border-blue-600 text-white'
-                        : 'border-zinc-700 text-zinc-400 hover:border-zinc-500'
+                        ? 'bg-violet-600 border-violet-500 text-white'
+                        : 'border-[#1f1f1f] text-zinc-400 hover:border-zinc-600'
                     }`}
                   >
-                    {METHOD_EMOJI[m]} {m}
+                    {m === 'call' && <PhoneIcon className="w-3 h-3" />}
+                    {m === 'message' && <MessageIcon className="w-3 h-3" />}
+                    {m === 'visit' && <ClockIcon className="w-3 h-3" />}
+                    <span className="capitalize">{m}</span>
                   </button>
                 ))}
               </div>
-              <input
-                type="text"
-                value={ciNotes}
-                onChange={(e) => setCiNotes(e.target.value)}
-                placeholder="Notes (optional)"
-                className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-3 py-2 text-sm text-white placeholder-zinc-600"
-              />
+              <input type="text" value={ciNotes} onChange={(e) => setCiNotes(e.target.value)} placeholder="Notes (optional)" className={inputClass} />
               {ciError && <p className="text-red-400 text-xs">{ciError}</p>}
-              <button
-                type="submit"
-                disabled={ciSaving}
-                className="w-full bg-blue-700 hover:bg-blue-600 disabled:opacity-50 text-white font-semibold py-2 rounded-xl transition-colors"
-              >
-                {ciSaved ? '✓ Saved' : ciSaving ? 'Saving…' : 'Log Check-in'}
+              <button type="submit" disabled={ciSaving} className="w-full bg-violet-600 hover:bg-violet-500 disabled:opacity-50 text-white font-semibold py-3 rounded-xl transition-colors">
+                {ciSaved ? 'Saved' : ciSaving ? 'Saving…' : 'Log Check-in'}
               </button>
             </div>
           </form>

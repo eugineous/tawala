@@ -3,6 +3,16 @@
 import { createClient } from '@/lib/supabase'
 import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
+import { WalletIcon, LeafIcon, CrossIcon, TargetIcon, BrainIcon, UsersIcon } from '@/components/icons'
+
+const FEATURES = [
+  { label: 'Finance', color: '#f59e0b', Icon: WalletIcon },
+  { label: 'Keto', color: '#22c55e', Icon: LeafIcon },
+  { label: 'Spirit', color: '#a78bfa', Icon: CrossIcon },
+  { label: 'Goals', color: '#7c3aed', Icon: TargetIcon },
+  { label: 'Mental', color: '#3b82f6', Icon: BrainIcon },
+  { label: 'Family', color: '#ec4899', Icon: UsersIcon },
+]
 
 function LoginContent() {
   const searchParams = useSearchParams()
@@ -20,41 +30,43 @@ function LoginContent() {
 
   return (
     <main className="flex min-h-screen flex-col bg-black text-white">
-      {/* Top section — hero */}
       <div className="flex flex-1 flex-col items-center justify-center px-6 pt-16 pb-8">
         {/* Glow orb */}
         <div className="relative mb-10">
-          <div className="absolute inset-0 rounded-full bg-violet-600 blur-3xl opacity-20 scale-150" />
-          <div className="relative flex h-24 w-24 items-center justify-center rounded-3xl bg-zinc-900 border border-zinc-800 shadow-2xl">
-            <span className="text-4xl">👑</span>
+          <div className="absolute inset-0 rounded-full bg-violet-600 blur-3xl opacity-25 scale-150" />
+          <div className="relative flex h-20 w-20 items-center justify-center rounded-3xl bg-[#0a0a0a] border border-[#1f1f1f] shadow-2xl">
+            <svg viewBox="0 0 24 24" className="w-10 h-10 text-violet-400" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
           </div>
         </div>
 
-        {/* Title */}
-        <h1 className="text-5xl font-black tracking-widest text-white mb-2">
+        {/* Wordmark */}
+        <h1 className="text-5xl font-black tracking-[0.2em] text-white mb-2">
           TAWALA
         </h1>
-        <p className="text-sm tracking-[0.3em] text-zinc-500 uppercase mb-1">
+        <p className="text-sm tracking-[0.25em] text-zinc-400 uppercase mb-1">
           Reign over your life
         </p>
         <p className="text-xs text-zinc-600 text-center max-w-xs mt-3 leading-relaxed">
           Your personal Life OS — finance, health, spirit, goals, and AI advisor in one place.
         </p>
 
-        {/* Feature pills */}
+        {/* Feature list */}
         <div className="flex flex-wrap justify-center gap-2 mt-8 max-w-xs">
-          {['💰 Finance', '🥑 Keto', '✝️ Spirit', '🎯 Goals', '🧠 Mental', '👨‍👩‍👧 Family'].map((f) => (
-            <span
-              key={f}
-              className="text-xs px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400"
+          {FEATURES.map(({ label, color, Icon }) => (
+            <div
+              key={label}
+              className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-[#0a0a0a] border border-[#1f1f1f] text-zinc-400"
             >
-              {f}
-            </span>
+              <span style={{ color }}><Icon className="w-3 h-3" /></span>
+              <span>{label}</span>
+            </div>
           ))}
         </div>
       </div>
 
-      {/* Bottom section — CTA */}
+      {/* CTA */}
       <div className="px-6 pb-12 space-y-4">
         {error && (
           <div className="rounded-xl bg-red-950/60 border border-red-900/50 px-4 py-3 text-sm text-red-400 text-center">

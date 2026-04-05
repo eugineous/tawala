@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { CrossIcon, BookIcon, HeartIcon, FireIcon } from '@/components/icons'
 
 interface BibleVerse {
   id: string
@@ -41,10 +42,13 @@ export default function SpiritPage() {
     })
   }, [])
 
+  const spiritScore = score?.score ?? 0
+  const scoreColor = spiritScore >= 70 ? '#22c55e' : spiritScore >= 40 ? '#f59e0b' : '#ef4444'
+
   return (
     <div className="min-h-screen bg-black text-white px-4 py-6">
-      <h1 className="text-2xl font-bold mb-1">Spirit OS</h1>
-      <p className="text-zinc-400 text-sm mb-6">
+      <h1 className="text-2xl font-bold tracking-tight mb-1">Spirit</h1>
+      <p className="text-zinc-500 text-sm mb-6">
         {new Date().toLocaleDateString('en-KE', { weekday: 'long', month: 'long', day: 'numeric' })}
       </p>
 
@@ -54,13 +58,14 @@ export default function SpiritPage() {
         <>
           {/* Daily Verse Card */}
           <div
-            className="bg-zinc-950 border border-amber-900/40 rounded-2xl p-5 mb-4 cursor-pointer"
+            className="bg-[#0a0a0a] border border-amber-900/30 rounded-2xl p-5 mb-4 cursor-pointer"
             onClick={() => setShowSwahili((s) => !s)}
           >
             <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-semibold text-amber-400 uppercase tracking-wider">
-                ✝️ Verse of the Day
-              </span>
+              <div className="flex items-center gap-2">
+                <CrossIcon className="w-4 h-4 text-amber-400" />
+                <span className="text-xs font-semibold text-amber-400 uppercase tracking-wider">Verse of the Day</span>
+              </div>
               <span className="text-xs text-zinc-500">{showSwahili ? 'SW' : 'EN'} · tap to toggle</span>
             </div>
             {verse ? (
@@ -77,18 +82,19 @@ export default function SpiritPage() {
           </div>
 
           {/* Morning Prayer */}
-          <div className="bg-zinc-950 border border-zinc-900 rounded-2xl p-4 mb-4">
+          <div className="bg-[#0a0a0a] border border-[#1f1f1f] rounded-2xl p-4 mb-4">
             <button
               className="w-full flex items-center justify-between"
               onClick={() => setPrayerExpanded((e) => !e)}
             >
-              <span className="text-sm font-semibold text-zinc-300">🙏 Morning Prayer</span>
-              <span className="text-zinc-500 text-lg">{prayerExpanded ? '−' : '+'}</span>
+              <div className="flex items-center gap-2">
+                <CrossIcon className="w-4 h-4 text-zinc-400" />
+                <span className="text-sm font-semibold text-zinc-300">Morning Prayer</span>
+              </div>
+              <span className="text-zinc-500 text-lg leading-none">{prayerExpanded ? '−' : '+'}</span>
             </button>
             {prayerExpanded && prayer && (
-              <p className="mt-3 text-sm text-zinc-300 leading-relaxed whitespace-pre-line">
-                {prayer}
-              </p>
+              <p className="mt-3 text-sm text-zinc-300 leading-relaxed whitespace-pre-line">{prayer}</p>
             )}
             {prayerExpanded && !prayer && (
               <p className="mt-3 text-sm text-zinc-500">Prayer not available</p>
@@ -97,35 +103,43 @@ export default function SpiritPage() {
 
           {/* Streak Counters */}
           <div className="grid grid-cols-3 gap-3 mb-4">
-            <div className="bg-zinc-950 border border-zinc-900 rounded-2xl p-3 text-center">
+            <div className="bg-[#0a0a0a] border border-[#1f1f1f] rounded-2xl p-3 text-center">
+              <div className="flex items-center justify-center gap-1 mb-1">
+                <FireIcon className="w-3.5 h-3.5 text-amber-400" />
+              </div>
               <p className="text-2xl font-bold text-amber-400">{score?.verse_streak ?? 0}</p>
               <p className="text-xs text-zinc-500 mt-1">Verse Streak</p>
             </div>
-            <div className="bg-zinc-950 border border-zinc-900 rounded-2xl p-3 text-center">
+            <div className="bg-[#0a0a0a] border border-[#1f1f1f] rounded-2xl p-3 text-center">
+              <div className="flex items-center justify-center gap-1 mb-1">
+                <FireIcon className="w-3.5 h-3.5 text-blue-400" />
+              </div>
               <p className="text-2xl font-bold text-blue-400">{score?.prayer_streak ?? 0}</p>
               <p className="text-xs text-zinc-500 mt-1">Prayer Streak</p>
             </div>
-            <div className="bg-zinc-950 border border-zinc-900 rounded-2xl p-3 text-center">
+            <div className="bg-[#0a0a0a] border border-[#1f1f1f] rounded-2xl p-3 text-center">
+              <div className="flex items-center justify-center gap-1 mb-1">
+                <BookIcon className="w-3.5 h-3.5 text-green-400" />
+              </div>
               <p className="text-2xl font-bold text-green-400">{score?.memory_reviews ?? 0}</p>
               <p className="text-xs text-zinc-500 mt-1">Reviews</p>
             </div>
           </div>
 
-          {/* Weekly Spirit Score */}
-          <div className="bg-zinc-950 border border-zinc-900 rounded-2xl p-4 mb-4">
+          {/* Spirit Score */}
+          <div className="bg-[#0a0a0a] border border-[#1f1f1f] rounded-2xl p-4 mb-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs text-zinc-500 mb-1">Weekly Spirit Score</p>
-                <p className="text-3xl font-bold text-white">{score?.score ?? 0}<span className="text-lg text-zinc-500">/100</span></p>
+                <p className="text-xs text-zinc-500 uppercase tracking-wider mb-1">Weekly Spirit Score</p>
+                <p className="text-3xl font-bold text-white">
+                  {spiritScore}<span className="text-lg text-zinc-500">/100</span>
+                </p>
               </div>
-              <div className="w-16 h-16 rounded-full border-4 flex items-center justify-center"
-                style={{
-                  borderColor: (score?.score ?? 0) >= 70 ? '#22c55e' : (score?.score ?? 0) >= 40 ? '#f59e0b' : '#ef4444'
-                }}
+              <div
+                className="w-16 h-16 rounded-full border-4 flex items-center justify-center"
+                style={{ borderColor: scoreColor }}
               >
-                <span className="text-xl">
-                  {(score?.score ?? 0) >= 70 ? '🔥' : (score?.score ?? 0) >= 40 ? '✨' : '🌱'}
-                </span>
+                <span className="text-lg font-bold" style={{ color: scoreColor }}>{spiritScore}</span>
               </div>
             </div>
           </div>
@@ -134,17 +148,17 @@ export default function SpiritPage() {
           <div className="grid grid-cols-2 gap-3">
             <Link
               href="/app/spirit/memory"
-              className="flex flex-col items-center justify-center bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 rounded-2xl py-5 transition-colors"
+              className="flex flex-col items-center justify-center bg-[#0a0a0a] hover:bg-[#111111] border border-[#1f1f1f] rounded-2xl py-5 transition-colors"
             >
-              <span className="text-2xl mb-1">📖</span>
+              <BookIcon className="w-6 h-6 text-amber-400 mb-2" />
               <span className="text-sm font-semibold">Memory Verses</span>
               <span className="text-xs text-zinc-500 mt-0.5">Spaced repetition</span>
             </Link>
             <Link
               href="/app/spirit/gratitude"
-              className="flex flex-col items-center justify-center bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 rounded-2xl py-5 transition-colors"
+              className="flex flex-col items-center justify-center bg-[#0a0a0a] hover:bg-[#111111] border border-[#1f1f1f] rounded-2xl py-5 transition-colors"
             >
-              <span className="text-2xl mb-1">🙌</span>
+              <HeartIcon className="w-6 h-6 text-pink-400 mb-2" />
               <span className="text-sm font-semibold">Gratitude Journal</span>
               <span className="text-xs text-zinc-500 mt-0.5">{score?.gratitude_entries ?? 0} this week</span>
             </Link>

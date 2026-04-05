@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { FireIcon, ZapIcon, CheckIcon, SunIcon } from '@/components/icons'
 
 interface Goal {
   id: string
@@ -40,14 +41,10 @@ export default function GoalsPage() {
       setGoals(goalsData.goals ?? [])
       const habitList: Habit[] = habitsData.habits ?? []
       setHabits(habitList)
-
-      // Fetch today's logs for each habit
       if (habitList.length > 0) {
         Promise.all(
           habitList.map((h) =>
-            fetch(`/api/habits/${h.id}/log?date=${today}`)
-              .then((r) => r.json())
-              .catch(() => null)
+            fetch(`/api/habits/${h.id}/log?date=${today}`).then((r) => r.json()).catch(() => null)
           )
         ).then((logs) => {
           const logMap: Record<string, boolean> = {}
@@ -74,11 +71,8 @@ export default function GoalsPage() {
       const data = await res.json()
       if (data.log) {
         setTodayLogs((prev) => ({ ...prev, [habitId]: data.log.completed }))
-        // Update streak in habits list
         setHabits((prev) =>
-          prev.map((h) =>
-            h.id === habitId ? { ...h, current_streak: data.streak } : h
-          )
+          prev.map((h) => h.id === habitId ? { ...h, current_streak: data.streak } : h)
         )
       }
     } finally {
@@ -94,15 +88,16 @@ export default function GoalsPage() {
   return (
     <div className="min-h-screen bg-black text-white px-4 py-6">
       <div className="flex items-center justify-between mb-1">
-        <h1 className="text-2xl font-bold">Goals OS</h1>
+        <h1 className="text-2xl font-bold tracking-tight">Goals</h1>
         <Link
           href="/app/goals/decision"
-          className="text-xs bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 rounded-full px-3 py-1.5 transition-colors"
+          className="flex items-center gap-1.5 text-xs bg-[#111111] hover:bg-[#1a1a1a] border border-[#1f1f1f] rounded-full px-3 py-1.5 transition-colors"
         >
-          🤔 Evaluate Decision
+          <ZapIcon className="w-3 h-3 text-violet-400" />
+          <span>Evaluate Decision</span>
         </Link>
       </div>
-      <p className="text-zinc-400 text-sm mb-6">
+      <p className="text-zinc-500 text-sm mb-6">
         {new Date().toLocaleDateString('en-KE', { weekday: 'long', month: 'long', day: 'numeric' })}
       </p>
 
@@ -110,12 +105,12 @@ export default function GoalsPage() {
         <p className="text-zinc-500 text-center mt-20">Loading…</p>
       ) : (
         <>
-          {/* Primary Monthly Goal Card */}
+          {/* Primary Monthly Goal */}
           {primaryGoal ? (
-            <div className="bg-zinc-950 border border-emerald-900/50 rounded-2xl p-5 mb-4">
+            <div className="bg-[#0a0a0a] border border-emerald-900/40 rounded-2xl p-5 mb-4">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-semibold text-emerald-400 uppercase tracking-wider">
-                  🎯 Monthly Goal #{month}
+                  Monthly Goal · {month}
                 </span>
                 <span className="text-xs text-zinc-500">{primaryGoal.progress_percent}%</span>
               </div>
@@ -123,8 +118,7 @@ export default function GoalsPage() {
               {primaryGoal.description && (
                 <p className="text-sm text-zinc-400 mb-3">{primaryGoal.description}</p>
               )}
-              {/* Progress bar */}
-              <div className="w-full bg-zinc-800 rounded-full h-2">
+              <div className="w-full bg-[#1f1f1f] rounded-full h-2">
                 <div
                   className="bg-emerald-500 h-2 rounded-full transition-all"
                   style={{ width: `${primaryGoal.progress_percent}%` }}
@@ -132,7 +126,7 @@ export default function GoalsPage() {
               </div>
             </div>
           ) : (
-            <div className="bg-zinc-950 border border-zinc-800 rounded-2xl p-5 mb-4 text-center">
+            <div className="bg-[#0a0a0a] border border-[#1f1f1f] rounded-2xl p-5 mb-4 text-center">
               <p className="text-zinc-500 text-sm">No primary goal set for {month}</p>
             </div>
           )}
@@ -141,12 +135,12 @@ export default function GoalsPage() {
           {otherGoals.length > 0 && (
             <div className="mb-4 space-y-2">
               {otherGoals.map((goal) => (
-                <div key={goal.id} className="bg-zinc-950 border border-zinc-900 rounded-xl p-4">
+                <div key={goal.id} className="bg-[#0a0a0a] border border-[#1f1f1f] rounded-xl p-4">
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-sm font-medium text-zinc-200">{goal.title}</span>
                     <span className="text-xs text-zinc-500">{goal.progress_percent}%</span>
                   </div>
-                  <div className="w-full bg-zinc-800 rounded-full h-1.5">
+                  <div className="w-full bg-[#1f1f1f] rounded-full h-1.5">
                     <div
                       className="bg-blue-500 h-1.5 rounded-full transition-all"
                       style={{ width: `${goal.progress_percent}%` }}
@@ -158,18 +152,16 @@ export default function GoalsPage() {
           )}
 
           {/* Habit Checklist */}
-          <div className="bg-zinc-950 border border-zinc-900 rounded-2xl p-4 mb-4">
+          <div className="bg-[#0a0a0a] border border-[#1f1f1f] rounded-2xl p-4 mb-4">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-sm font-semibold text-zinc-300">📋 Today's Habits</span>
-              <span className="text-xs text-zinc-500">
-                {completedToday}/{totalHabits} done
-              </span>
+              <p className="text-xs text-zinc-500 uppercase tracking-wider">Today&apos;s Habits</p>
+              <span className="text-xs text-zinc-500">{completedToday}/{totalHabits} done</span>
             </div>
 
             {habits.length === 0 ? (
               <p className="text-zinc-500 text-sm text-center py-2">No habits yet</p>
             ) : (
-              <ul className="space-y-2">
+              <ul className="space-y-2.5">
                 {habits.map((habit) => {
                   const done = todayLogs[habit.id] ?? false
                   const isLogging = loggingHabit === habit.id
@@ -185,23 +177,21 @@ export default function GoalsPage() {
                         }`}
                         aria-label={done ? `Unmark ${habit.name}` : `Complete ${habit.name}`}
                       >
-                        {done && <span className="text-xs text-white">✓</span>}
+                        {done && <CheckIcon className="w-3 h-3 text-white" />}
                       </button>
                       <div className="flex-1 min-w-0">
-                        <span
-                          className={`text-sm ${done ? 'line-through text-zinc-500' : 'text-zinc-200'}`}
-                        >
+                        <span className={`text-sm ${done ? 'line-through text-zinc-500' : 'text-zinc-200'}`}>
                           {habit.name}
                         </span>
                         {habit.is_morning_routine && (
-                          <span className="ml-2 text-xs text-amber-500">☀️</span>
+                          <SunIcon className="inline w-3 h-3 text-amber-400 ml-1.5" />
                         )}
                       </div>
-                      {/* Streak badge */}
                       {habit.current_streak > 0 && (
-                        <span className="text-xs bg-orange-900/40 text-orange-400 border border-orange-800/40 rounded-full px-2 py-0.5 flex-shrink-0">
-                          🔥 {habit.current_streak}
-                        </span>
+                        <div className="flex items-center gap-1 bg-orange-900/30 border border-orange-800/30 rounded-full px-2 py-0.5 flex-shrink-0">
+                          <FireIcon className="w-3 h-3 text-orange-400" />
+                          <span className="text-xs text-orange-400">{habit.current_streak}</span>
+                        </div>
                       )}
                     </li>
                   )
@@ -213,7 +203,7 @@ export default function GoalsPage() {
           {/* Streak Badges */}
           {habits.filter((h) => h.current_streak >= 3).length > 0 && (
             <div className="mb-4">
-              <p className="text-xs text-zinc-500 mb-2 uppercase tracking-wider">🏅 Active Streaks</p>
+              <p className="text-xs text-zinc-500 uppercase tracking-wider mb-2">Active Streaks</p>
               <div className="flex flex-wrap gap-2">
                 {habits
                   .filter((h) => h.current_streak >= 3)
@@ -221,22 +211,27 @@ export default function GoalsPage() {
                   .map((habit) => (
                     <div
                       key={habit.id}
-                      className="bg-zinc-900 border border-orange-800/40 rounded-xl px-3 py-2 text-center"
+                      className="bg-[#0a0a0a] border border-orange-800/30 rounded-xl px-3 py-2 text-center"
                     >
-                      <p className="text-lg font-bold text-orange-400">🔥 {habit.current_streak}</p>
-                      <p className="text-xs text-zinc-400 mt-0.5 max-w-[80px] truncate">{habit.name}</p>
+                      <div className="flex items-center justify-center gap-1 mb-0.5">
+                        <FireIcon className="w-4 h-4 text-orange-400" />
+                        <p className="text-lg font-bold text-orange-400">{habit.current_streak}</p>
+                      </div>
+                      <p className="text-xs text-zinc-400 max-w-[80px] truncate">{habit.name}</p>
                     </div>
                   ))}
               </div>
             </div>
           )}
 
-          {/* Quick action */}
+          {/* Decision Evaluator */}
           <Link
             href="/app/goals/decision"
-            className="flex items-center justify-center gap-2 w-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 rounded-2xl py-4 transition-colors"
+            className="flex items-center gap-3 w-full bg-[#0a0a0a] hover:bg-[#111111] border border-[#1f1f1f] rounded-2xl py-4 px-4 transition-colors"
           >
-            <span className="text-xl">🤔</span>
+            <div className="w-10 h-10 rounded-xl bg-violet-600/10 border border-violet-600/20 flex items-center justify-center flex-shrink-0">
+              <ZapIcon className="w-5 h-5 text-violet-400" />
+            </div>
             <div>
               <p className="text-sm font-semibold">AI Decision Evaluator</p>
               <p className="text-xs text-zinc-500">Get Gemini to evaluate a decision</p>
