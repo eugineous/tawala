@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import AuthProvider from "@/components/AuthProvider";
 
 export const metadata: Metadata = {
   title: "TAWALA — Life OS",
@@ -22,8 +21,25 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body className="min-h-screen bg-black text-foreground antialiased">
-        <AuthProvider>{children}</AuthProvider>
+      <head>
+        {/* Force-unregister any stale service workers */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(function(regs) {
+                  regs.forEach(function(r) { r.unregister(); });
+                });
+                caches.keys().then(function(keys) {
+                  keys.forEach(function(k) { caches.delete(k); });
+                });
+              }
+            `,
+          }}
+        />
+      </head>
+      <body className="min-h-screen bg-black text-white antialiased">
+        {children}
       </body>
     </html>
   );
